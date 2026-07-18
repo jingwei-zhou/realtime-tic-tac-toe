@@ -1,0 +1,27 @@
+{
+  "name": "realtime-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "A real-time, two-player tic-tac-toe game built with Node.js, Express, and Socket.io.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "tic-tac-toe",
+    "socket.io",
+    "websocket",
+    "express",
+    "multiplayer",
+    "game"
+  ],
+  "author": "jingwei-zhou",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  }
+}

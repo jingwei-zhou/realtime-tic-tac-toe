@@ -1,0 +1,12 @@
+# Render Blueprint — lets Render deploy this app straight from the GitHub repo.
+# See the "Deploy" section of README.md for the click-by-click steps.
+services:
+  - type: web
+    name: realtime-tic-tac-toe
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
