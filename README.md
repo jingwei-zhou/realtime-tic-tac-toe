@@ -6,8 +6,8 @@ A real-time, two-player tic-tac-toe game you play against another person in the 
 
 1. Open the game in your browser and click **Find Game**.
 2. You're matched with the next player looking for a game. One of you is **X**, the other **O** — X moves first.
-3. Take turns clicking an empty square. The board only lets you click on your own turn.
-4. First to line up three in a row (across, down, or diagonally) wins; a full board with no winner is a draw.
+3. Take turns clicking an empty square on the **5×5** board. The board only lets you click on your own turn.
+4. First to line up **3 in a row** — horizontally, vertically, or diagonally, anywhere on the board — wins; a full board with no winner is a draw.
 5. Click **Play Again** to jump back into matchmaking for a new opponent.
 
 ## Tech Stack

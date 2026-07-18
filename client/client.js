@@ -1,14 +1,32 @@
 const socket = io();
 
+const BOARD_SIZE = 5;                    // 5x5 board (must match the server)
+const CELL_COUNT = BOARD_SIZE * BOARD_SIZE;
+
 const statusEl = document.getElementById('status');
 const spinnerEl = document.getElementById('spinner');
-const cells = Array.from(document.querySelectorAll('.cell'));
+const boardEl = document.getElementById('board');
 const findBtn = document.getElementById('find');
 const rematchBtn = document.getElementById('rematch');
 
 let mySymbol = null;   // 'X' or 'O'
 let myTurn = false;
 let gameActive = false;
+
+// Build the board cells once, up front.
+const cells = [];
+for (let i = 0; i < CELL_COUNT; i++) {
+  const cell = document.createElement('button');
+  cell.className = 'cell';
+  cell.dataset.index = String(i);
+  cell.setAttribute('aria-label', `cell ${i + 1}`);
+  cell.addEventListener('click', () => {
+    if (!gameActive || !myTurn || cell.textContent) return;
+    socket.emit('make-move', { index: i });
+  });
+  boardEl.appendChild(cell);
+  cells.push(cell);
+}
 
 function setStatus(text) {
   statusEl.textContent = text;
@@ -50,7 +68,7 @@ function setCellsEnabled(enabled) {
 
 function clearBoard() {
   cells.forEach((c) => c.classList.remove('win'));
-  render(Array(9).fill(null));
+  render(Array(CELL_COUNT).fill(null));
   setCellsEnabled(false);
 }
 
@@ -67,14 +85,6 @@ function findGame() {
 
 findBtn.addEventListener('click', findGame);
 rematchBtn.addEventListener('click', findGame);
-
-cells.forEach((cell) => {
-  cell.addEventListener('click', () => {
-    const index = Number(cell.dataset.index);
-    if (!gameActive || !myTurn || cell.textContent) return;
-    socket.emit('make-move', { index });
-  });
-});
 
 socket.on('connect', () => {
   setSearching(false);

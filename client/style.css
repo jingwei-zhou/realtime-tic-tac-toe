@@ -3,9 +3,9 @@
   --panel: #1a1d24;
   --line: #2c313c;
   --text: #e6e9ef;
-  --muted: #9aa3b2;
+  --muted: #c3cad8;
   --accent: #4f8cff;
-  --x: #4f8cff;
+  --x: #5b9bff;
   --o: #ff6b6b;
   --win: #35c26b;   /* distinct green for winning cells */
 }
@@ -17,22 +17,37 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  padding: 1.5rem;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: var(--bg);
   color: var(--text);
+  /* Sunrise-over-sea background (self-contained SVG). */
+  background: url('/background.svg') center center / cover no-repeat fixed, #16224e;
 }
 
+/* Translucent card keeps the game readable over the bright background. */
 .app {
   text-align: center;
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem;
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
+  background: rgba(15, 17, 21, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
-  margin: 0 0 1rem;
+  margin: 0 0 0.25rem;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+.subtitle {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .status {
@@ -43,7 +58,7 @@ h1 {
   transition: color 0.2s ease;
 }
 
-/* (3) Turn indicator: tint the status to the active player's color, and
+/* Turn indicator: tint the status to the active player's color, and
    pulse it while it's this player's move. */
 .status[data-player="X"] { color: var(--x); }
 .status[data-player="O"] { color: var(--o); }
@@ -54,7 +69,7 @@ h1 {
   50%      { opacity: 0.5; }
 }
 
-/* (4) Loading spinner shown while searching for an opponent. */
+/* Loading spinner shown while searching for an opponent. */
 .spinner {
   width: 28px;
   height: 28px;
@@ -69,33 +84,34 @@ h1 {
   to { transform: rotate(360deg); }
 }
 
+/* 5x5 board. */
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 96px);
-  grid-template-rows: repeat(3, 96px);
-  gap: 8px;
+  grid-template-columns: repeat(5, 64px);
+  grid-template-rows: repeat(5, 64px);
+  gap: 6px;
   background: var(--line);
-  padding: 8px;
+  padding: 6px;
   border-radius: 14px;
   margin: 0 auto;
 }
 
 .cell {
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--panel);
   color: var(--text);
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.05s ease;
 }
 
 .cell:hover:not(:disabled) { background: #232733; }
-.cell:active:not(:disabled) { transform: scale(0.96); }
+.cell:active:not(:disabled) { transform: scale(0.94); }
 .cell:disabled { cursor: default; }
 
-/* (1) Smooth "pop" when a symbol appears in a cell. */
+/* Smooth "pop" when a symbol appears in a cell. */
 .cell[data-mark] { animation: place 0.18s ease; }
 .cell[data-mark="X"] { color: var(--x); }
 .cell[data-mark="O"] { color: var(--o); }
@@ -105,7 +121,7 @@ h1 {
   to   { transform: scale(1);   opacity: 1; }
 }
 
-/* (2) Winning three cells get a distinct highlight. */
+/* Winning cells get a distinct highlight. */
 .cell.win {
   background: var(--win);
   color: #0f1115;
@@ -114,7 +130,7 @@ h1 {
 
 @keyframes winpop {
   0%   { transform: scale(1); }
-  50%  { transform: scale(1.08); }
+  50%  { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
@@ -138,15 +154,15 @@ h1 {
 
 #rematch { margin-top: 1.5rem; }
 
-/* (5) Responsive: on narrow screens the board scales to fit the viewport. */
-@media (max-width: 420px) {
+/* Responsive: on narrow screens the board scales to fit the viewport. */
+@media (max-width: 480px) {
   .board {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    width: min(88vw, 340px);
-    height: min(88vw, 340px);
-    gap: 6px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    width: min(92vw, 360px);
+    height: min(92vw, 360px);
+    gap: 4px;
   }
-  .cell { font-size: 13vw; }
+  .cell { font-size: 7vw; }
   h1 { font-size: 1.6rem; }
 }

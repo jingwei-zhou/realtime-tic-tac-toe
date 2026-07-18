@@ -9,22 +9,13 @@
 <body>
   <main class="app">
     <h1>Tic-Tac-Toe</h1>
+    <p class="subtitle">5×5 board — get 3 in a row to win</p>
 
     <button id="find" class="btn">Find Game</button>
     <p id="status" class="status">Click Find Game to start</p>
     <div id="spinner" class="spinner" hidden aria-hidden="true"></div>
 
-    <div id="board" class="board" aria-label="game board">
-      <button class="cell" data-index="0" aria-label="cell 1"></button>
-      <button class="cell" data-index="1" aria-label="cell 2"></button>
-      <button class="cell" data-index="2" aria-label="cell 3"></button>
-      <button class="cell" data-index="3" aria-label="cell 4"></button>
-      <button class="cell" data-index="4" aria-label="cell 5"></button>
-      <button class="cell" data-index="5" aria-label="cell 6"></button>
-      <button class="cell" data-index="6" aria-label="cell 7"></button>
-      <button class="cell" data-index="7" aria-label="cell 8"></button>
-      <button class="cell" data-index="8" aria-label="cell 9"></button>
-    </div>
+    <div id="board" class="board" aria-label="game board"></div>
 
     <button id="rematch" class="btn" hidden>Play Again</button>
   </main>
